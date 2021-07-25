@@ -26,6 +26,13 @@
         .then(function (registration)
         {
           console.log('Service worker registered successfully');
+    
+          let acl = new Accelerometer({frequency: 60});
+          acl.addEventListener('reading', ()=>{
+            console.log(acl.x);
+            console.log(acl.y);
+            console.log(acl.z);
+          });
         }).catch(function (e)
         {
           console.error('Error during service worker registration:', e);
@@ -34,13 +41,6 @@
     }
     
     console.log("hello");
-    
-    let acl = new Accelerometer({frequency: 60});
-    acl.addEventListener('reading', ()=>{
-      console.log(acl.x);
-      console.log(acl.y);
-      console.log(acl.z);
-    });
     
   </script>
   
