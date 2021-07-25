@@ -26,14 +26,20 @@
         .then(function (registration)
         {
           console.log('Service worker registered successfully');
-    
-          let acl = new Accelerometer({frequency: 60});
-          console.log(acl);
-          acl.addEventListener('reading', ()=>{
-            console.log(acl.x);
-            console.log(acl.y);
-            console.log(acl.z);
+          DeviceMotionEvent.requestPermission().then(response => {
+              if (response == 'granted') {
+                  console.log("accelerometer permission granted");
+                  let acl = new Accelerometer({frequency: 60});
+                    console.log(acl);
+                    acl.addEventListener('reading', ()=>{
+                      console.log(acl.x);
+                      console.log(acl.y);
+                      console.log(acl.z);
+                    });
+              }
           });
+    
+          
         }).catch(function (e)
         {
           console.error('Error during service worker registration:', e);
