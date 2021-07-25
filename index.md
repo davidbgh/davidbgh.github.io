@@ -32,6 +32,14 @@
         });
       }
     }
+    
+    let acl = new Accelerometer({frequency: 60});
+    acl.addEventListener('reading', ()=>{
+      console.log(acl.x);
+      console.log(acl.y);
+      console.log(acl.z);
+    });
+    console.log()
   </script>
   
   <style>
