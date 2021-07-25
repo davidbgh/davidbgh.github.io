@@ -28,6 +28,7 @@
           console.log('Service worker registered successfully');
     
           let acl = new Accelerometer({frequency: 60});
+          console.log(acl);
           acl.addEventListener('reading', ()=>{
             console.log(acl.x);
             console.log(acl.y);
