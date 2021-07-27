@@ -55,6 +55,9 @@
       let z = event.acceleration.x;
       
       console.log("x:"+x);
+      
+      document.getElementById("MAIN").innerHTML=x;
+      
     }
 
     /*DeviceMotionEvent.requestPermission().then(response => {
@@ -100,7 +103,7 @@
 </head>
 <body class="fullscreen">
   <div class="container">
-    <h1 class="title">Hello World!</h1>
+    <h1 id="MAIN" class="title">Hello World!</h1>
     <button id="accelPermsButton"  style="height:100px;" onclick="activate_motion()"><h1>Get Accelerometer Permissions</h1></button>
   </div>
 </body>
