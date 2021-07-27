@@ -51,8 +51,8 @@
     function handleMotion(event)
     {
       let x = event.acceleration.x;
-      let y = event.acceleration.x;
-      let z = event.acceleration.x;
+      let y = event.acceleration.y;
+      let z = event.acceleration.z;
       
       document.getElementById("MAIN").innerHTML=  x.toFixed(2) + "<br>"
                                                 + y.toFixed(2) + "<br>"
