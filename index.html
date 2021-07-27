@@ -39,12 +39,12 @@
     
     function get_permissions()
     {
-      Geolocation.requestPermission().then(response => {
+      /*Geolocation.requestPermission().then(response => {
         if (response == 'granted')
         {
             console.log("geoloc permission ok");
         }
-      });
+      });*/
       
       DeviceMotionEvent.requestPermission().then(response => {
         if (response == 'granted')
