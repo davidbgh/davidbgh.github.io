@@ -54,10 +54,9 @@
       let y = event.acceleration.x;
       let z = event.acceleration.x;
       
-      console.log("x:"+x);
-      
-      document.getElementById("MAIN").innerHTML=x;
-      
+      document.getElementById("MAIN").innerHTML=  x.toFixed(2) + "<br>"
+                                                + y.toFixed(2) + "<br>"
+                                                + z.toFixed(2) + "<br>";
     }
 
     /*DeviceMotionEvent.requestPermission().then(response => {
