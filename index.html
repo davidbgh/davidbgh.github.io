@@ -37,12 +37,19 @@
       }
     }*/
     
-    function activate_motion()
+    function get_permissions()
     {
+      Geolocation.requestPermission().then(response => {
+        if (response == 'granted')
+        {
+            console.log("geoloc permission ok");
+        }
+      });
+      
       DeviceMotionEvent.requestPermission().then(response => {
         if (response == 'granted')
         {
-            console.log("accelerometer permission granted");
+            console.log("accelerometer permission ok");
             window.addEventListener("devicemotion", handleMotion, true);
         }
       });
@@ -54,23 +61,21 @@
       let y = event.acceleration.y;
       let z = event.acceleration.z;
       
-      document.getElementById("MAIN").innerHTML=  x.toFixed(2) + "<br>"
+      document.getElementById("main").innerHTML=  x.toFixed(2) + "<br>"
                                                 + y.toFixed(2) + "<br>"
                                                 + z.toFixed(2) + "<br>";
+                                                
+      navigator.geolocation.getCurrentPosition(handleGeolocation, error);
     }
-
-    /*DeviceMotionEvent.requestPermission().then(response => {
-        if (response == 'granted') {
-            console.log("accelerometer permission granted");
-            let acl = new Accelerometer({frequency: 60});
-            console.log(acl);
-            acl.addEventListener('reading', ()=>{
-              console.log(acl.x);
-              console.log(acl.y);
-              console.log(acl.z);
-            });
-        }
-    });*/
+    
+    function handleGeolocation(position)
+    {
+      let latitude  = position.coords.latitude;
+      let longitude = position.coords.longitude;
+      
+      document.getElementById("secondary").innerHTML=   latitude.toFixed(2) + "<br>"
+                                                      + longitude.toFixed(2) + "<br>"
+    }
   </script>
   
   <style>
@@ -102,8 +107,9 @@
 </head>
 <body class="fullscreen">
   <div class="container">
-    <h1 id="MAIN" class="title">Hello World!</h1>
-    <button id="accelPermsButton"  style="height:100px;" onclick="activate_motion()"><h1>Get Accelerometer Permissions</h1></button>
+    <h1 id="main" class="title">Hello World!</h1>
+    <h1 id="secondary" class="title">Hello World!</h1>
+    <button id="accelPermsButton"  style="font-size: 2rem;height:100px;" onclick="get_permissions()"><h1>Get Accelerometer and Geolocation Permissions</h1></button>
   </div>
 </body>
 </html>
