@@ -37,6 +37,9 @@
       }
     }*/
     
+    let v=0;
+    
+    
     function get_permissions()
     {
     
@@ -61,7 +64,8 @@
         if (response == 'granted')
         {
             console.log("accelerometer permission ok");
-            window.addEventListener("devicemotion", handleMotion, true);
+            //window.addEventListener("devicemotion", handleMotion, true);
+            setTimeout()
         }
       });
     }
@@ -80,13 +84,17 @@
     
     function handleMotion(event)
     {
-      let x = event.acceleration.x;
-      let y = event.acceleration.y;
-      let z = event.acceleration.z;
-      
-      document.getElementById("main").innerHTML=  x.toFixed(2) + "<br>"
-                                                + y.toFixed(2) + "<br>"
-                                                + z.toFixed(2) + "<br>";
+      if(v++>100)
+      {
+        v=0;
+        let x = event.acceleration.x;
+        let y = event.acceleration.y;
+        let z = event.acceleration.z;
+        
+        document.getElementById("main").innerHTML=  x.toFixed(2) + "<br>"
+                                                  + y.toFixed(2) + "<br>"
+                                                  + z.toFixed(2) + "<br>";
+      }
     }
   </script>
   
