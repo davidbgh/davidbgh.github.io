@@ -55,13 +55,13 @@
         }
       });*/
       
-      DeviceMotionEvent.requestPermission().then(response => {
+      /*DeviceMotionEvent.requestPermission().then(response => {
         if (response == 'granted')
         {
             console.log("accelerometer permission ok");
             window.addEventListener("devicemotion", handleMotion, true);
         }
-      });
+      });*/
     }
     
     function handleGeolocation(position)
@@ -116,8 +116,8 @@
 </head>
 <body class="fullscreen">
   <div class="container">
-    <h1 id="main" class="title">Hello World!</h1>
-    <h1 id="secondary" class="title">Hello World!</h1>
+    <h1 id="main" class="title"><device motion here></h1>
+    <h1 id="secondary" class="title"><gps position here></h1>
     <button id="accelPermsButton"  style="font-size: 2rem;height:100px;" onclick="get_permissions()"><p>Get Accelerometer and Geolocation Permissions</p></button>
   </div>
 </body>
