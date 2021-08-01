@@ -64,8 +64,7 @@
         if (response == 'granted')
         {
             console.log("accelerometer permission ok");
-            //window.addEventListener("devicemotion", handleMotion, true);
-            setTimeout()
+            window.addEventListener("devicemotion", handleMotion, true);
         }
       });
     }
@@ -74,9 +73,6 @@
     {
       let lati  = position.coords.latitude;
       let longi = position.coords.longitude;
-      
-      console.log(position);
-      console.log(lati);
       
       document.getElementById("secondary").innerHTML=   lati.toFixed(2) + "<br>"
                                                       + longi.toFixed(2) + "<br>";
