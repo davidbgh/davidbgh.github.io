@@ -39,12 +39,21 @@
     
     function get_permissions()
     {
-      Geolocation.requestPermission().then(response => {
+      if(navigator.geolocation)
+      {
+        console.log('ok')
+        navigator.geolocation.getCurrentPosition(handleGeolocation, null);
+      }
+      else
+      {
+        console.log('Geolocation is not supported by this device')
+      }
+      /*Geolocation.requestPermission().then(response => {
         if (response == 'granted')
         {
             console.log("geoloc permission ok");
         }
-      });
+      });*/
       
       DeviceMotionEvent.requestPermission().then(response => {
         if (response == 'granted')
