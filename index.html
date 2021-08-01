@@ -39,10 +39,12 @@
     
     function get_permissions()
     {
+    
+      //ki volt kapcsolva ios-ben a privacy->location
       if(navigator.geolocation)
       {
         console.log('ok')
-        navigator.geolocation.getCurrentPosition(handleGeolocation, err);
+        navigator.geolocation.getCurrentPosition(handleGeolocation, null);
       }
       else
       {
@@ -55,31 +57,25 @@
         }
       });*/
       
-      /*DeviceMotionEvent.requestPermission().then(response => {
+      DeviceMotionEvent.requestPermission().then(response => {
         if (response == 'granted')
         {
             console.log("accelerometer permission ok");
             window.addEventListener("devicemotion", handleMotion, true);
         }
-      });*/
+      });
     }
     
     function handleGeolocation(position)
     {
-      console.log("func")
-      
       let lati  = position.coords.latitude;
       let longi = position.coords.longitude;
       
-      console.log(position)
-      console.log(lati)
+      console.log(position);
+      console.log(lati);
       
       document.getElementById("secondary").innerHTML=   lati.toFixed(2) + "<br>"
-                                                      + longi.toFixed(2) + "<br>"
-    }
-    
-    function err {
-      console.log("err")
+                                                      + longi.toFixed(2) + "<br>";
     }
     
     function handleMotion(event)
@@ -91,8 +87,6 @@
       document.getElementById("main").innerHTML=  x.toFixed(2) + "<br>"
                                                 + y.toFixed(2) + "<br>"
                                                 + z.toFixed(2) + "<br>";
-                                                
-      
     }
   </script>
   
