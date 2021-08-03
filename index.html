@@ -79,11 +79,13 @@
   {
     let lati  = position.coords.latitude;
     let longi = position.coords.longitude;
-    let speed = position.coords.speed;
+    let spd = position.coords.speed;
+    
+    console.log(spd);
     
     document.getElementById("secondary").innerHTML=   lati.toFixed(2) + "<br>"
                                                     + longi.toFixed(2) + "<br>"
-                                                    + speed.toFixed(2) + "<br>";
+                                                    + spd.toFixed(2) + "<br>";
   }
   
   function handleMotion(event)
