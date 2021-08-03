@@ -83,7 +83,7 @@
     let longi = position.coords.longitude;
     let spd = position.coords.speed;
     
-    console.log(position);
+    console.log(position.coords.speed === null);
     
     document.getElementById("secondary").innerHTML=   lati.toFixed(2) + "<br>"
                                                     + longi.toFixed(2) + "<br>"
