@@ -17,81 +17,100 @@
   <link rel="apple-touch-icon" href="images/hello-icon-152.png">   
   
   <script>
-    /*window.onload = () => {
-      'use strict';
-    
-      if('serviceWorker' in navigator)
-      {
-        navigator.serviceWorker.register('sw.js', { scope: '/' })
-        .then(function (registration)
-        {
-          console.log('Service worker registered successfully');
-          console.log("hello");
-          window.addEventListener("deviceorientation", handleOrientation, true);
-          
-                
-        }).catch(function (e)
-        {
-          console.error('Error during service worker registration:', e);
-        });
-      }
-    }*/
-    
-    let v=0;
-    
-    
-    function get_permissions()
+  window.onload = () => {
+    'use strict';
+  
+    if('serviceWorker' in navigator)
     {
-    
-      //ki volt kapcsolva ios-ben a privacy->location
-      if(navigator.geolocation)
+      navigator.serviceWorker.register('sw.js', { scope: '/' })
+      .then(function (registration)
       {
-        console.log('ok')
-        navigator.geolocation.getCurrentPosition(handleGeolocation, null);
+        console.log('Service worker registered');
+        window.addEventListener("deviceorientation", handleOrientation, true);
+        
+              
+      }).catch(function (e)
+      {
+        console.error('Error during service worker registration:', e);
+      });
+    }
+  }
+  /**************************************************************************/
+  const GPS_DELTA=0.0001;
+  const ACCEL_DELTA=1.0;
+  
+  let v=0;
+  
+  
+  
+  function get_permissions()
+  {
+  
+    //ki volt kapcsolva ios-ben a privacy->location
+    if(navigator.geolocation)
+    {
+      console.log('ok')
+      navigator.geolocation.getCurrentPosition(handleGeolocation, null);
+    }
+    else
+    {
+      console.log('Geolocation is not supported by this device');
+    }
+    /*Geolocation.requestPermission().then(response => {
+      if (response == 'granted')
+      {
+          console.log("geoloc permission ok");
+      }
+    });*/
+    
+    DeviceMotionEvent.requestPermission().then(response => {
+      if (response == 'granted')
+      {
+          console.log("accelerometer permission ok");
+          window.addEventListener("devicemotion", handleMotion, true);
+      }
+    });
+  }
+  
+  //ha gps valtozasa kicsi es a gyorsulas is adott ertek alatt van
+  //jelezzen
+  
+  function handleGeolocation(position)
+  {
+    let lati  = position.coords.latitude;
+    let longi = position.coords.longitude;
+    let speed = position.coords.speed;
+    
+    document.getElementById("secondary").innerHTML=   lati.toFixed(2) + "<br>"
+                                                    + longi.toFixed(2) + "<br>"
+                                                    + speed.toFixed(2) + "<br>";
+  }
+  
+  function handleMotion(event)
+  {
+    if(v++>5)
+    {
+      v=0;
+      let x = event.acceleration.x;
+      let y = event.acceleration.y;
+      let z = event.acceleration.z;
+      
+      if(x<ACCEL_DELTA && y<ACCEL_DELTA && z<ACCEL_DELTA)
+      {
+        document.getElementById("main").style.color="red";
       }
       else
       {
-        console.log('Geolocation is not supported by this device');
+        document.getElementById("main").style.color="white";
       }
-      /*Geolocation.requestPermission().then(response => {
-        if (response == 'granted')
-        {
-            console.log("geoloc permission ok");
-        }
-      });*/
       
-      DeviceMotionEvent.requestPermission().then(response => {
-        if (response == 'granted')
-        {
-            console.log("accelerometer permission ok");
-            window.addEventListener("devicemotion", handleMotion, true);
-        }
-      });
-    }
-    
-    function handleGeolocation(position)
-    {
-      let lati  = position.coords.latitude;
-      let longi = position.coords.longitude;
+      document.getElementById("main").innerHTML=  x.toFixed(2) + "<br>"
+                                                + y.toFixed(2) + "<br>"
+                                                + z.toFixed(2) + "<br>";
       
-      document.getElementById("secondary").innerHTML=   lati.toFixed(2) + "<br>"
-                                                      + longi.toFixed(2) + "<br>";
+      navigator.geolocation.getCurrentPosition(handleGeolocation, null);
     }
-    
-    function handleMotion(event)
-    {
-      if(v++>50)
-      {
-        v=0;
-        let x = event.acceleration.x;
-        let y = event.acceleration.y;
-        let z = event.acceleration.z;
-        
-        document.getElementById("main").innerHTML=  x.toFixed(2) + "<br>"
-                                                  + y.toFixed(2) + "<br>"
-                                                  + z.toFixed(2) + "<br>";
-      }
-    }
+  }
   </script>
   
   <style>
