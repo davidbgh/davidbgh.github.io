@@ -40,6 +40,8 @@
   const ACCEL_DELTA=1.0;
   
   let v=0;
+  let gps_lat_seged=0;
+  let gps_lon_seged=0;
   
   
   
@@ -77,17 +79,23 @@
   
   function handleGeolocation(position)
   {
-    console.log("geo");
-    
     let lati  = position.coords.latitude;
     let longi = position.coords.longitude;
-    let spd = position.coords.speed;
     
-    console.log(position.coords.speed === null);
+    if((lati-gps_lat_seged<GPS_DELTA) && (longi-gps_lon_seged<GPS_DELTA))
+    {
+      document.getElementById("secondary").style.color="red";
+    }
+    else
+    {
+      document.getElementById("secondary").style.color="white";
+    }
+    
+    gps_lat_seged=lati;
+    gps_lon_seged=longi;
     
     document.getElementById("secondary").innerHTML=   lati.toFixed(2) + "<br>"
-                                                    + longi.toFixed(2) + "<br>"
-                                                    + spd.toFixed(2) + "<br>";
+                                                    + longi.toFixed(2) + "<br>";
   }
   
   function handleMotion(event)
@@ -112,7 +120,6 @@
                                                 + y.toFixed(2) + "<br>"
                                                 + z.toFixed(2) + "<br>";
       
-      console.log("geo called");
       navigator.geolocation.getCurrentPosition(handleGeolocation, null);
     }
   }
