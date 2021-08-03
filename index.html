@@ -77,6 +77,8 @@
   
   function handleGeolocation(position)
   {
+    console.log("geo");
+    
     let lati  = position.coords.latitude;
     let longi = position.coords.longitude;
     let spd = position.coords.speed;
@@ -110,6 +112,7 @@
                                                 + y.toFixed(2) + "<br>"
                                                 + z.toFixed(2) + "<br>";
       
+      console.log("geo called");
       navigator.geolocation.getCurrentPosition(handleGeolocation, null);
     }
   }
